@@ -1,0 +1,12 @@
+1v1 - (t-1)                                     -> LSTM -> transform -> response
+1v2 - (t-1) + y_t                               -> LSTM -> transform -> response
+1v2_wpca - (t-1) + y_t + per_class_accuracy     -> LSTM -> transform -> response
+1v3 - (t-1) + z_t, y_t                          -> LSTM -> transform -> response
+3v1 - (t-1)                                     -> LSTM -> transform -> hyperplane @ z -> response
+3v2 - (t-1) + y_t                               -> LSTM -> transform -> hyperplane @ z -> response
+3v3 - (t-1) + z_t, y_t                          -> LSTM -> transform -> hyperplane @ z -> response
+
+static baseline
+ground truth baseline
+time-step baseline
+
