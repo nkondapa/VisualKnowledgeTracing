@@ -9,7 +9,7 @@ import experiment_utilities as eut
 import config
 import os
 
-from observer_models.lstm import LSTMObserverModelCLF1v2wPCA
+from tracing_models.lstm import LSTMTracingModelCLF1v2wPCA
 
 parser = argparse.ArgumentParser(description='Runner Recurrent Model')
 
@@ -132,7 +132,7 @@ if not args.continue_training:
         else:
             fe_model = args.feature_extractor_architecture
 
-    model = LSTMObserverModelCLF1v2wPCA(response_dimension=(evars.num_supervised_queries, evars.num_classes),
+    model = LSTMTracingModelCLF1v2wPCA(response_dimension=(evars.num_supervised_queries, evars.num_classes),
                                         input_dimension=(evars.num_supervised_queries, args.feature_dimension),
                                         out_dimension=(evars.num_classes, args.feature_dimension),
                                         seq_len=evars.sequence_length,
@@ -166,7 +166,7 @@ optimizer = torch.optim.Adam([
     {'params': model.transform_hidden_state_to_hyperplane.parameters(), 'lr': args.lr},
     {'params': model.feature_extractor.parameters(), 'lr': args.fe_lr},
 ])
-# model.set_feature_extractor_trainable(False)
+
 model_folder = f'{args.experiment_group_name}/{args.experiment_name}/{args.experiment_save_specifier}/'
 print(model_folder)
 
@@ -266,8 +266,6 @@ def train():
         loss, loss_vals = model.loss_function(out, data_batch['responses_t'])
         loss.backward()
         optimizer.step()
-        # for p in model.parameters():
-        #     p.data.add_(p.grad, alpha=-lr)
 
         total_loss += loss.item() * len(bli)
         total_init_loss += loss_vals['init_loss'] * len(bli)
@@ -300,7 +298,6 @@ def train():
         if args.dry_run:
             break
 
-    # print('Acc per seq position: ', num/denom)
     results['train_per_sequence_per_learner_acc'].append(results_mat)
     results['train_per_epoch_loss'].append(np.sum(epoch_loss) / loss_denom)
     results['train_per_epoch_init_loss'].append(np.sum(epoch_init_loss) / loss_denom)

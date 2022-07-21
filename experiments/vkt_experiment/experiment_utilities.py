@@ -67,3 +67,40 @@ def load_model(_experiment_group_name, experiment_name, experiment_save_specifie
     folder = f'{_experiment_group_name}/{experiment_name}/{experiment_save_specifier}/'
     model_dict = ut.file_utilities.load(folder, filename, return_dict=True)
     return model_dict
+
+
+def load_learning_rates(script_name):
+
+    lr = None # learning rate
+    fe_lr = None # feature extractor learning rate
+    if script_name == 'runner_baseline':
+        lr = 0.0001
+        fe_lr = 0.0001
+    elif script_name == 'runner_gt_baseline':
+        lr = 0.0001
+        fe_lr = 0.0001
+    elif script_name == 'runner_timestep_baseline':
+        lr = 0.0001
+        fe_lr = 0.0001
+    elif script_name == 'runner_dkt_translation_model':
+        lr = 0.001
+        fe_lr = 0.0001
+    elif script_name == 'runner_direct_response_transformer':
+        lr = 0.0001
+        fe_lr = 0.0001
+    elif script_name == 'runner_prototype_baseline':
+        lr = 0.001
+        fe_lr = 0.001
+    elif script_name == 'runner_exemplar_baseline':
+        lr = 0.001
+        fe_lr = 0.001
+    elif script_name == 'runner_per_class_accuracy_baseline':
+        lr = 0.001
+        fe_lr = 0.001
+    elif 'runner_classifier_model' in script_name or 'runner_direct_response_model' in script_name:
+        lr = 0.001
+        fe_lr = 0.00001
+    else:
+        raise NotImplementedError
+
+    return lr, fe_lr

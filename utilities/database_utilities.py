@@ -160,8 +160,8 @@ def save(learner_data, experiment_vars, path_to_experiment_folder, experiment_na
         pkl.dump(experiment_vars, f)
 
 
-################ FORMATTING UTILITIES ################
-
+#################################################################
+# FORMATTING UTILITIES
 def compute_flattened_data_length(data_tuple_dict):
 
     flat_data_length = 0

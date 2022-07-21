@@ -9,7 +9,7 @@ import experiment_utilities as eut
 import config
 import os
 
-from observer_models.lstm import LSTMObserverModelCLF1v2
+from tracing_models.lstm import LSTMTracingModelCLF1v2
 
 parser = argparse.ArgumentParser(description='Runner Recurrent Model')
 
@@ -81,7 +81,6 @@ parser.add_argument('--log-interval', type=int, default=10, metavar='N',
 args = parser.parse_args()
 print(sys.argv)
 
-
 # Set the random seed manually for reproducibility.
 torch.manual_seed(args.seed)
 if torch.cuda.is_available():
@@ -133,17 +132,17 @@ if not args.continue_training:
         else:
             fe_model = args.feature_extractor_architecture
 
-    model = LSTMObserverModelCLF1v2(response_dimension=(evars.num_supervised_queries, evars.num_classes),
-                                    input_dimension=(evars.num_supervised_queries, args.feature_dimension),
-                                    out_dimension=(evars.num_classes, args.feature_dimension),
-                                    seq_len=evars.sequence_length,
-                                    pretrained_feature_extractor=fe_model,
-                                    hidden_state_dimension=args.hidden_state_dimension,
-                                    num_layers=args.num_layers,
-                                    init_loss_weight=args.init_loss_weight,
-                                    label_smoothing=args.label_smoothing,
-                                    dropout=args.dropout,
-                                    information_level=args.information_level)
+    model = LSTMTracingModelCLF1v2(response_dimension=(evars.num_supervised_queries, evars.num_classes),
+                                   input_dimension=(evars.num_supervised_queries, args.feature_dimension),
+                                   out_dimension=(evars.num_classes, args.feature_dimension),
+                                   seq_len=evars.sequence_length,
+                                   pretrained_feature_extractor=fe_model,
+                                   hidden_state_dimension=args.hidden_state_dimension,
+                                   num_layers=args.num_layers,
+                                   init_loss_weight=args.init_loss_weight,
+                                   label_smoothing=args.label_smoothing,
+                                   dropout=args.dropout,
+                                   information_level=args.information_level)
     model.to(selected_device)
     args.start_epoch = 1
 else:
@@ -265,8 +264,6 @@ def train():
         loss, loss_vals = model.loss_function(out, data_batch['responses_t'])
         loss.backward()
         optimizer.step()
-        # for p in model.parameters():
-        #     p.data.add_(p.grad, alpha=-lr)
 
         total_loss += loss.item() * len(bli)
         total_init_loss += loss_vals['init_loss'] * len(bli)
@@ -299,7 +296,6 @@ def train():
         if args.dry_run:
             break
 
-    # print('Acc per seq position: ', num/denom)
     results['train_per_sequence_per_learner_acc'].append(results_mat)
     results['train_per_epoch_loss'].append(np.sum(epoch_loss) / loss_denom)
     results['train_per_epoch_init_loss'].append(np.sum(epoch_init_loss) / loss_denom)

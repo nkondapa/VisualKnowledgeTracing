@@ -2,7 +2,7 @@
 *.*
 !.gitattributes
 !.gitignore
-!readme.md
+!README.md
 !.gitkeep
 !*.py
 !*.db
