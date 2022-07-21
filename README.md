@@ -15,7 +15,7 @@ This document will guide you through setting up the project directory
 in order to run the experiments presented in the paper and to develop new models
 to try on this dataset.
 
-<img src="datasets_comb.png" alt="dataset" style="height: 280px; width:500px;"/>
+<img src="datasets_comb.png" alt="dataset image" style="height: 280px; width:500px;"/>
 
 ### [[Dataset]](https://data.caltech.edu/records/20234)
 

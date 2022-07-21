@@ -15,4 +15,5 @@
 !*.json
 !requirements.txt
 !.subshell_rc
+!datasets_comb.png
 test_script.py
