@@ -26,7 +26,7 @@ The `mongodb_data/` folder contains the raw responses from subjects.
 The `<dataset-name>.json` contains the mapping between images and image_ids in the 
 human data.
 
-### [[Paper]]() 
+### [[Paper]](https://arxiv.org/abs/2207.10157v2) 
 The experiments from the paper are contained within 
 `/VisualKnowledgeTracing/experiments/vkt_experiment/`  
 ##### Main paper models - `experiment1.py`  
@@ -89,7 +89,7 @@ a type of tracing model.
 3. Change the experiment_group_name variable to your experiment name in `experiment_utilities.py`
 4. Modify `experiment1_script.py` to create your own experiment where multiple models are trained
 
-#### Creating your own model and training it
+#### Creating your own model and training
 1. Copy the `template.py` file and rename to your model's name
    - Modify or fill in the functions in the template
 2. Copy the `runner_template.py` script

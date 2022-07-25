@@ -13,7 +13,9 @@
 !*.ipynb
 !*.sh
 !*.json
+!environment.yml
 !requirements.txt
 !.subshell_rc
+!.subshell_initfile
 !datasets_comb.png
 test_script.py
